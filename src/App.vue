@@ -19,8 +19,8 @@ export default{
     }
   },
   methods:{
-    callApi(){
-      axios.get(store.apiUrl + '/search/movie', {
+    callApi(path){
+      axios.get(store.apiUrl + path, {
         params: {
           api_key: store.apiKey,
           language: store.apiLang,
@@ -28,12 +28,28 @@ export default{
         }
       })
        .then((response) => {
-        store.moviesArray = [...response.data.results]
-        console.log(store.moviesArray)
+        if(path.includes('movie')){
+          store.moviesArray = [...response.data.results];
+        } else if(path.includes('tv')){
+          store.seriesArray = [...response.data.results];
+        }
        })
        .catch((error) => {
         console.log(error)
        })
+    },
+    searchApiFor(what){
+      switch(what){
+        case 'movies':
+          this.callApi('/search/movie');
+          break;
+        case 'series':
+          this.callApi('/search/tv');
+          break;
+        default:
+          this.callApi('/search/movie');
+          this.callApi('/search/tv');
+      }
     }
   }
 }
@@ -42,7 +58,7 @@ export default{
 
 <template>
 
-  <AppHeader @newSearch="callApi"/>
+  <AppHeader @newSearch="searchApiFor('both')"/>
   <AppMain/>
 
 </template>

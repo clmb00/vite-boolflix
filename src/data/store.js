@@ -6,5 +6,6 @@ export const store = reactive({
   apiKey: '12cd508e26aee626964e63fcf50464ab',
   apiLang: 'it-IT',
   querySearch: '',
-  moviesArray: []
+  moviesArray: [],
+  seriesArray: []
 });

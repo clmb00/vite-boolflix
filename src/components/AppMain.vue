@@ -34,6 +34,18 @@ export default{
       />
     </ul>
 
+    <h2>TV Series</h2>
+    <ul>
+      <MainCard
+      v-for="(series, k) in store.seriesArray" 
+      :key="k" 
+      :title="series.name" 
+      :originalTitle="series.original_name" 
+      :lang="series.original_language" 
+      :vote="series.vote_average"
+      />
+    </ul>
+
   </main>
 
 </template>
