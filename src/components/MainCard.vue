@@ -1,13 +1,28 @@
 <script>
 
 export default{
-  name: 'MainCard'
+  name: 'MainCard',
+  props:{
+    title: String,
+    originalTitle: String,
+    lang: String,
+    vote: Number
+  }
 }
 
 </script>
 
 <template>
-C
+
+<li>
+  {{title}}
+  <ul>
+    <li>{{originalTitle}}</li>
+    <li>{{lang}}</li>
+    <li>{{vote}}</li>
+  </ul>
+</li>
+
 </template>
 
 <style lang="scss" scoped>

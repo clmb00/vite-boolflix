@@ -5,4 +5,6 @@ export const store = reactive({
   apiPath: '/search/movie', 
   apiKey: '12cd508e26aee626964e63fcf50464ab',
   apiLang: 'it-IT',
+  querySearch: '',
+  moviesArray: []
 });

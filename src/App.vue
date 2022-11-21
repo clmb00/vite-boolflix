@@ -17,6 +17,24 @@ export default{
     return{
       store
     }
+  },
+  methods:{
+    callApi(){
+      axios.get(store.apiUrl + '/search/movie', {
+        params: {
+          api_key: store.apiKey,
+          language: store.apiLang,
+          query: store.querySearch
+        }
+      })
+       .then((response) => {
+        store.moviesArray = [...response.data.results]
+        console.log(store.moviesArray)
+       })
+       .catch((error) => {
+        console.log(error)
+       })
+    }
   }
 }
 
@@ -24,7 +42,7 @@ export default{
 
 <template>
 
-  <AppHeader/>
+  <AppHeader @newSearch="callApi"/>
   <AppMain/>
 
 </template>
