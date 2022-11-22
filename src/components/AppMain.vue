@@ -30,7 +30,8 @@ export default{
       :title="movie.title" 
       :originalTitle="movie.original_title" 
       :lang="movie.original_language" 
-      :vote="movie.vote_average"
+      :vote="movie.vote_average" 
+      :urlImg="movie.poster_path"
       />
     </ul>
 
@@ -42,7 +43,8 @@ export default{
       :title="series.name" 
       :originalTitle="series.original_name" 
       :lang="series.original_language" 
-      :vote="series.vote_average"
+      :vote="series.vote_average" 
+      :urlImg="series.poster_path"
       />
     </ul>
 
@@ -54,6 +56,10 @@ export default{
 
 main{
   padding-inline: 34px;
+}
+
+h2{
+  margin-block: 25px;
 }
 
 </style>

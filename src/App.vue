@@ -65,6 +65,6 @@ export default{
 
 <style lang="scss">
 
-@import './styles/general.scss';
+@use './styles/general.scss' as *;
 
 </style>
