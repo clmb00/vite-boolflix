@@ -51,6 +51,7 @@ header{
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 999;
 }
 .container{
   height: 100px;

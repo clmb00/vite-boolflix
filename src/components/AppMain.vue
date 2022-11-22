@@ -62,8 +62,8 @@ export default{
     </div>
 
     <div class="container">
-      <MainCardContainer sectionTitle="Trending Movies" type="tmovies"/>
       <MainCardContainer sectionTitle="Trending TV Series" type="tseries"/>
+      <MainCardContainer sectionTitle="Trending Movies" type="tmovies"/>
       <MainCardContainer sectionTitle="Movies" type="movies"/>
       <MainCardContainer sectionTitle="TV Series" type="series"/>
     </div>
@@ -73,6 +73,8 @@ export default{
 </template>
 
 <style lang="scss" scoped>
+
+@use "../styles/partials/variables.scss" as *;
 
 .jumbo{
   width: 100%;
@@ -85,7 +87,7 @@ export default{
     position: absolute;
     bottom: 0px;
     left: 0;
-    background: linear-gradient(rgba(0,0,0,0), #333 95%);
+    background: linear-gradient(rgba(0,0,0,0), $back-color 95%);
     width: 100%;
     height: 200px;
   }
@@ -117,7 +119,6 @@ export default{
       margin-left: 20px;
       vertical-align: middle;
       cursor: pointer;
-      z-index: 444;
     }
   }
 }

@@ -49,7 +49,9 @@ export default{
         :originalTitle="movie.original_title || movie.original_name" 
         :lang="movie.original_language" 
         :vote="movie.vote_average" 
-        :urlImg="movie.poster_path"
+        :urlImg="movie.poster_path" 
+        :overview="movie.overview"
+        class="card"
         />
       </ul>
     </div>
@@ -60,8 +62,19 @@ export default{
 
 <style lang="scss" scoped>
 
+@use "../styles/partials/variables.scss" as *;
+
 h2{
-  margin-block: 25px;
+  margin-bottom: 25px;
+  color: white;
+  font-size: 1.8rem;
+}
+
+ul{
+  display: flex;
+  // overflow-x: scroll;
+  column-gap: 8px;
+  margin-bottom: 30px;
 }
 
 </style>
