@@ -18,14 +18,14 @@ export default{
 
   <header>
     <div class="container">
-      <div class="logo">
+      <div class="logo" @click="store.currentPage = 'Home'">
         <img src="../assets/img/logo-boolflix.png" alt="Boolflix">
       </div>
       <nav>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">TV Shows</a></li>
-          <li><a href="#">Movies</a></li>
+          <li><a href="#" @click="store.currentPage = 'Home'">Home</a></li>
+          <li><a href="#" @click="store.currentPage = 'Series'">TV Shows</a></li>
+          <li><a href="#" @click="store.currentPage = 'Movies'">Movies</a></li>
         </ul>
       </nav>
       <div class="inputbox" :class="{hide: !showInput}">
@@ -94,6 +94,7 @@ header{
     &.x_btn{
       font-size: 1rem;
       margin: 0;
+      height: 100%;
       border-bottom: 2px solid white;
       padding-inline: 3px;
       background-color: rgba($color: #000000, $alpha: .5);
@@ -103,7 +104,7 @@ header{
   input{
     background-color: rgba($color: #000000, $alpha: .5);
     padding: 8px 2px;
-    min-width: 200px;
+    min-width: 250px;
     height: 100%;
     color: white;
     border: none;
@@ -116,10 +117,10 @@ header{
   }
 
   .inputbox{
-    height: 35px;
+    height: 40px;
     transition: all .2s ease;
     background: transparent;
-    box-shadow: 0px -4px 2px 2px rgba($color: #000000, $alpha: .5);
+    box-shadow: 0px -10px 5px rgba($color: #000000, $alpha: .5);
     display: flex;
     align-items: center;
     &.hide{

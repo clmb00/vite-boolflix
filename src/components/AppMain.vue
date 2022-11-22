@@ -49,7 +49,7 @@ export default{
 
   <main>
 
-    <div class="jumbo">
+    <div class="jumbo" v-show="store.currentPage == 'Home'">
       <img :src="urlBackImage" alt="a">
       <h1>{{titleJumbo}}</h1>
       <div class="subRating">
@@ -61,11 +61,17 @@ export default{
       </div>
     </div>
 
+    <div v-if="store.currentPage != 'Home'" class="top-space"></div>
+
     <div class="container">
-      <MainCardContainer sectionTitle="Trending TV Series" type="tseries"/>
-      <MainCardContainer sectionTitle="Trending Movies" type="tmovies"/>
-      <MainCardContainer sectionTitle="Movies" type="movies"/>
-      <MainCardContainer sectionTitle="TV Series" type="series"/>
+      <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Series'" sectionTitle="Trending TV Series" type="tseries"/>
+      <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Movies'" sectionTitle="Trending Movies" type="tmovies"/>
+      <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Popular Movies" type="popmovies"/>
+      <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Top Rated Movies" type="topmovies"/>
+      <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Popular Tv Series" type="popseries"/>
+      <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Top Rated Tv Series" type="topseries"/>
+      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.moviesArray.length != 0" sectionTitle="Movies" type="movies"/>
+      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.seriesArray.length != 0" sectionTitle="TV Series" type="series"/>
     </div>
 
   </main>
@@ -75,6 +81,14 @@ export default{
 <style lang="scss" scoped>
 
 @use "../styles/partials/variables.scss" as *;
+
+main{
+  padding-bottom: 80px;
+}
+
+.top-space{
+  height: calc($header_height + 50px);
+}
 
 .jumbo{
   width: 100%;

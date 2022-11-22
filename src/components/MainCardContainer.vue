@@ -28,6 +28,14 @@ export default{
         return store.trendingMovies
       } else if (this.type=='tseries') {
         return store.trendingSeries
+      } else if (this.type=='topmovies') {
+        return store.topRatedMovies
+      } else if (this.type=='topseries') {
+        return store.topRatedSeries
+      } else if (this.type=='popmovies') {
+        return store.popularMovies
+      } else if (this.type=='popseries') {
+        return store.popularSeries
       }
     }
   }
@@ -37,9 +45,7 @@ export default{
 
 <template>
 
-  <main>
-
-    <div>
+    <div class="group">
       <h2>{{sectionTitle}}</h2>
       <ul>
         <MainCard
@@ -56,8 +62,6 @@ export default{
       </ul>
     </div>
 
-  </main>
-
 </template>
 
 <style lang="scss" scoped>
@@ -65,7 +69,7 @@ export default{
 @use "../styles/partials/variables.scss" as *;
 
 h2{
-  margin-bottom: 25px;
+  margin-bottom: 50px;
   color: white;
   font-size: 1.8rem;
 }
@@ -74,7 +78,10 @@ ul{
   display: flex;
   // overflow-x: scroll;
   column-gap: 8px;
-  margin-bottom: 30px;
+}
+
+.group{
+  margin-bottom: 60px;
 }
 
 </style>

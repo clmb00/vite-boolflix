@@ -99,8 +99,8 @@ img{
   position: relative;
   transition: all .3s ease;
   &:hover{
-    transform: scale(1.4);
-    margin-inline: 60px;
+    transform: scale(1.3);
+    margin-inline: 50px;
   }
   &:hover .pointer i{
     display: inline-block;

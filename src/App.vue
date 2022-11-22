@@ -61,6 +61,7 @@ export default{
        })
     },
     searchApiFor(what){
+      store.currentPage = 'Search';
       switch(what){
         case 'movies':
           this.callApi('/search/movie');
