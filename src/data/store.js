@@ -7,5 +7,12 @@ export const store = reactive({
   apiLang: 'it-IT',
   querySearch: '',
   moviesArray: [],
-  seriesArray: []
+  seriesArray: [],
+  trendingMovies: [],
+  trendingSeries: [],
+  popularMovies: [],
+  topRatedMovies: [],
+  popularSeries: [],
+  topRatedSeries: [],
+  currentPage: 'Home'
 });

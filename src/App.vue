@@ -28,10 +28,32 @@ export default{
         }
       })
        .then((response) => {
-        if(path.includes('movie')){
-          store.moviesArray = [...response.data.results];
-        } else if(path.includes('tv')){
-          store.seriesArray = [...response.data.results];
+        switch(path){
+          case '/search/movie':
+            store.moviesArray = [...response.data.results];
+            break;
+          case '/search/tv':
+            store.seriesArray = [...response.data.results];
+            break;
+          case '/trending/movie/week':
+            store.trendingMovies = [...response.data.results];
+            break;
+          case '/trending/tv/week':
+            store.trendingSeries = [...response.data.results];
+            break;
+          case '/movie/popular':
+            store.popularMovies = [...response.data.results];
+            break;
+          case '/movie/top_rated':
+            store.topRatedMovies = [...response.data.results];
+            break;
+          case '/tv/popular':
+            store.popularSeries = [...response.data.results];
+            break;
+            case '/tv/top_rated':
+            store.topRatedSeries = [...response.data.results];
+            break;
+          default:
         }
        })
        .catch((error) => {
@@ -51,6 +73,14 @@ export default{
           this.callApi('/search/tv');
       }
     }
+  },
+  mounted(){
+    this.callApi('/trending/movie/week');
+    this.callApi('/trending/tv/week');
+    this.callApi('/movie/popular');
+    this.callApi('/movie/top_rated');
+    this.callApi('/tv/popular');
+    this.callApi('/tv/top_rated');
   }
 }
 

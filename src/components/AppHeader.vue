@@ -28,8 +28,10 @@ export default{
           <li><a href="#">Movies</a></li>
         </ul>
       </nav>
-      <input :class="{hide: !showInput}" @keyup.enter="$emit('newSearch')" type="text" v-model.trim="store.querySearch" placeholder="Cerca qualcosa">
-      <button @click="showInput = !showInput" :class="{hide: !showInput}" class="x_btn"><i class="fa-solid fa-xmark"></i></button>
+      <div class="inputbox" :class="{hide: !showInput}">
+        <input @keyup.enter="$emit('newSearch')" type="text" v-model.trim="store.querySearch" placeholder="Cerca qualcosa">
+        <button @click="showInput = !showInput" class="x_btn"><i class="fa-solid fa-xmark"></i></button>
+      </div>
       <button @click="showInput = !showInput" v-show="!showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button @click="$emit('newSearch')" v-show="showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button><i class="fa-solid fa-bell"></i></button>
@@ -89,31 +91,36 @@ header{
       margin-left: -5px;
     }
     &.x_btn{
-      transition: all .2s ease;
       font-size: 1rem;
       margin: 0;
-      border-bottom: 1px solid white;
+      border-bottom: 2px solid white;
       padding-inline: 3px;
-    }
-    &.hide{
-      opacity: 0;
+      background-color: rgba($color: #000000, $alpha: .5);
     }
   }
 
   input{
-    background-color: transparent;
+    background-color: rgba($color: #000000, $alpha: .5);
     padding: 8px 2px;
     min-width: 200px;
-    height: 35px;
+    height: 100%;
     color: white;
     border: none;
     outline: none;
     font-weight: bold;
-    border-bottom: 1px solid white;
-    transition: all .2s ease;
+    border-bottom: 2px solid white;
     &::placeholder{
       color: #c7c7c7;
     }
+  }
+
+  .inputbox{
+    height: 35px;
+    transition: all .2s ease;
+    background: transparent;
+    box-shadow: 0px -4px 2px 2px rgba($color: #000000, $alpha: .5);
+    display: flex;
+    align-items: center;
     &.hide{
       transform: translate(50%, 0) scaleX(0);
     }
