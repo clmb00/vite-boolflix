@@ -32,8 +32,14 @@ export default{
       if(this.correctCode){return ''}
       else {return this.lang.toUpperCase()}
     },
-    generateVote(){
-      return Math.round(this.vote);
+    fullStars(){
+      return Math.floor(Math.round(this.vote)/2);
+    },
+    halfStars(){
+      return Math.round(this.vote)%2;
+    },
+    whiteStars(){
+      return Math.floor((10 - Math.round(this.vote))/2);
     }
   }
 }
@@ -51,9 +57,9 @@ export default{
       <span class="fi" :class="createFlag">{{displayName}}</span>
     </li>
     <li>
-      <i v-for="n in Math.floor(generateVote/2)" :key="n" class="fa-solid fa-star"></i>
-      <i v-for="n in generateVote%2" :key="n" class="fa-regular fa-star-half-stroke"></i>
-      <i v-for="n in Math.floor((10 - generateVote)/2)" :key="n" class="fa-regular fa-star"></i>
+      <i v-for="n in fullStars" :key="n" class="fa-solid fa-star"></i>
+      <i v-for="n in halfStars" :key="n" class="fa-regular fa-star-half-stroke"></i>
+      <i v-for="n in whiteStars" :key="n" class="fa-regular fa-star"></i>
     </li>
   </ul>
   <hr>
