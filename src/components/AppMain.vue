@@ -57,7 +57,7 @@ export default{
   <main>
 
     <div class="loading_page" v-show="store.loading">
-      <CompLoading/>
+      <CompLoading scale="big"/>
     </div>
     
     
@@ -90,8 +90,8 @@ export default{
       <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.movies.array.length != 0" sectionTitle="Movies" type="movies" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.series.array.length != 0" sectionTitle="TV Series" type="series" @newPage="newPage"/>
 
-      <h2 v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0">Non abbiamo trovato nessun risultato con la ricerca: <i>"{{store.lastSearch}}""</i></h2>
-      <MainCardContainer v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0" sectionTitle="Check our Popular Movies" type="popmovies" @newPage="newPage"/>
+      <h2 v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0">We didn't find any matches for <i>"{{store.lastSearch}}"</i>.</h2>
+      <MainCardContainer v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0" sectionTitle="Browse our most Popular Movies: " type="popmovies" @newPage="newPage"/>
 
     </div>
 

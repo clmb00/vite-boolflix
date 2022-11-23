@@ -1,18 +1,21 @@
 <script>
 
 export default {
-  name: 'CompLoading'
+  name: 'CompLoading',
+  props:{
+    scale: String
+  }
 }
 
 </script>
 
 <template>
 
-<div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<div class="lds-default" :class="{'small' : scale == 'small'}"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 
 </template>
 
-<style scoped >
+<style scoped lang="scss" >
 
 .lds-default {
   display: inline-block;
@@ -20,6 +23,9 @@ export default {
   width: 160px;
   height: 160px;
   transform: scale(.8);
+  &.small{
+    transform: translateX(-50px) scale(.5);
+  }
 }
 .lds-default div {
   position: absolute;

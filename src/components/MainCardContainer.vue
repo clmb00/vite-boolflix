@@ -1,13 +1,15 @@
 <script>
 
 import MainCard from './MainCard.vue';
+import CompLoading from './CompLoading.vue';
 
 import { store } from '../data/store';
 
 export default{
   name: 'MainCardContainer',
   components:{
-    MainCard
+    MainCard,
+    CompLoading
   },
   props:{
     sectionTitle: String,
@@ -80,7 +82,12 @@ export default{
         :id="movie.id"
         class="card"
         />
-        <li @click="loadNew"><i class="fa-solid fa-circle-plus"></i></li>
+        <li class="loading-page-icon" v-if="store.loadingNewPage">
+          <CompLoading scale="small"/>
+        </li>
+        <li @click="loadNew" v-else>
+          <i class="fa-solid fa-circle-plus"></i>
+        </li>
       </ul>
       <div class="scroll s-right" @click="scrollToRight">
         <i class="fa-solid fa-chevron-right"></i>
@@ -112,6 +119,7 @@ ul{
     cursor: pointer;
   }
 }
+
 
 .group{
   position: relative;

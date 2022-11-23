@@ -20,7 +20,6 @@ export default{
   },
   methods:{
     callApi(path, page = 1){
-      store.loading = true;
       axios.get(store.apiUrl + path, {
         params: {
           api_key: store.apiKey,
@@ -58,6 +57,7 @@ export default{
           default:
         }
         store.loading = false;
+        store.loadingNewPage = false;
        })
        .catch((error) => {
         console.log(error)
@@ -65,6 +65,8 @@ export default{
        })
     },
     searchApiFor(what){
+      store.loading = true;
+      if (store.querySearch == '') return;
       store.currentPage = 'Search';
       switch(what){
         case 'movies':
@@ -79,6 +81,7 @@ export default{
       }
     },
     callNewPage(type){
+      store.loadingNewPage = true;
       switch (type) {
         case 'movies':
           store.movies.page++;
@@ -113,15 +116,28 @@ export default{
           this.callApi('/tv/popular', store.popularSeries.page);
         }
       console.log(type)
+    },
+    loadPage(){
+      store.loading = true;
+      store.currentPage = 'Home'
+      store.movies.array = [];
+      store.series.array = [];
+      store.trendingMovies.array = [];
+      store.trendingSeries.array = [];
+      store.popularMovies.array = [];
+      store.popularSeries.array = [];
+      store.topRatedMovies.array = [];
+      store.topRatedSeries.array = [];
+      this.callApi('/trending/movie/week');
+      this.callApi('/trending/tv/week');
+      this.callApi('/movie/popular');
+      this.callApi('/movie/top_rated');
+      this.callApi('/tv/popular');
+      this.callApi('/tv/top_rated');
     }
   },
   mounted(){
-    this.callApi('/trending/movie/week');
-    this.callApi('/trending/tv/week');
-    this.callApi('/movie/popular');
-    this.callApi('/movie/top_rated');
-    this.callApi('/tv/popular');
-    this.callApi('/tv/top_rated');
+    this.loadPage()
   }
 }
 
@@ -129,7 +145,7 @@ export default{
 
 <template>
 
-  <AppHeader @newSearch="searchApiFor('both')"/>
+  <AppHeader @newSearch="searchApiFor('both')" @newLoad="loadPage()"/>
   <AppMain @callNewPage="callNewPage"/>
 
 </template>

@@ -8,6 +8,7 @@ export const store = reactive({
   querySearch: '',
   lastSearch: '',
   loading: true,
+  loadingNewPage: false,
   movies: {
     array: [],
     page: 1

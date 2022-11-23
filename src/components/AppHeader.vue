@@ -8,7 +8,9 @@ export default{
     return{
       store,
       showInput: false,
-      isUnder50vh: false
+      isUnder50vh: false,
+      activeFlag: 'it',
+      showChangeLang: false
     }
   },
   methods:{
@@ -21,6 +23,17 @@ export default{
       store.movies.array = [];
       store.series.array = [];
       store.lastSearch = store.querySearch;
+    },
+    changeLanguage(lang){
+      store.apiLang = lang;
+      this.activeFlag = lang;
+      this.$emit('newLoad');
+    }
+  },
+  computed:{
+    activeFlagImg(){
+      if (this.activeFlag == 'en') return 'fi-gb'
+      else return 'fi-' + this.activeFlag
     }
   },
   mounted(){
@@ -45,14 +58,33 @@ export default{
         </ul>
       </nav>
       <div class="inputbox" :class="{hide: !showInput}">
-        <input @keyup.enter="search" type="text" v-model.trim="store.querySearch" placeholder="Cerca qualcosa">
+        <input @keyup.enter="search" type="text" v-model.trim="store.querySearch" placeholder="Search">
         <button @click="showInput = !showInput; store.querySearch = ''" class="x_btn"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <button @click="search" v-show="showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button @click="showInput = !showInput" v-show="!showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button><i class="fa-solid fa-bell"></i></button>
       <button><i class="fa-solid fa-circle-user"></i></button>
-      <button><i class="fa-solid fa-caret-down"></i></button>
+      <button class="caret-down"><i class="fa-solid fa-caret-down"></i></button>
+      <div class="flag active" @click="showChangeLang = !showChangeLang">
+        <span class="fi" :class="activeFlagImg"></span>
+
+        <div class="change-flag-container" v-if="showChangeLang">
+          <div class="flag" :class="{'active' : activeFlag == 'it'}" @click="changeLanguage('it')">
+            <span class="fi" :class="'fi-it'"></span>
+          </div>
+          <div class="flag" :class="{'active' : activeFlag == 'en'}" @click="changeLanguage('en')">
+            <span class="fi" :class="'fi-gb'"></span>
+          </div>
+          <div class="flag" :class="{'active' : activeFlag == 'es'}" @click="changeLanguage('es')">
+            <span class="fi" :class="'fi-es'"></span>
+          </div>
+          <div class="flag" :class="{'active' : activeFlag == 'fr'}" @click="changeLanguage('fr')">
+            <span class="fi" :class="'fi-fr'"></span>
+          </div>
+        </div>
+      </div>
+      <button class="caret-down lang" @click="showChangeLang = !showChangeLang"><i class="fa-solid fa-caret-down"></i></button>
     </div>
   </header>
 
@@ -108,9 +140,13 @@ header{
     font-size: 1.6rem;
     margin-inline: 15px;
     height: 35px;
-    &:last-of-type{
+    &.caret-down{
       font-size: 1.2rem;
       margin-left: -5px;
+      &.lang{
+        margin-left: 10px;
+        margin-right: 0px;
+      }
     }
     &.x_btn{
       font-size: 1rem;
@@ -124,7 +160,7 @@ header{
 
   input{
     background-color: rgba($color: #000000, $alpha: .5);
-    padding: 8px 2px;
+    padding: 8px 5px;
     min-width: 250px;
     height: 100%;
     color: white;
@@ -149,6 +185,30 @@ header{
     }
   }
   
+}
+
+.flag{
+  cursor: pointer;
+  filter: grayscale(.9);
+  &.active{
+    filter: none;
+    position: relative;
+  }
+}
+
+.change-flag-container{
+  position: absolute;
+  top: 30px;
+  left: 25;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 1rem;
+  width: 50px;
+  padding-block: .5rem;
+  padding-inline: .5rem;
+  text-align: center;
+  &>*{
+    margin-bottom: 4px;
+  }
 }
 
 </style>
