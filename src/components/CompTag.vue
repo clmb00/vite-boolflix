@@ -8,20 +8,14 @@ export default {
     return{
       store,
       selectionOfColors: ['red', 'orange', 'yellow', 'green', 'blue', 'purple'],
-      lastColor: ''
     }
   },
   props:{
     type: String
   },
   methods:{
-    selectRandomColor(){
-      let rnd_color;
-      do{
-        rnd_color = this.selectionOfColors[Math.floor(Math.random() * this.selectionOfColors.length)]
-      } while(rnd_color == this.lastColor)
-      this.lastColor = rnd_color;
-      return rnd_color
+    randomIndex(){
+      return Math.floor(Math.random() * this.selectionOfColors.length)
     },
     filterGenres(id){
       const tag = document.getElementById(id);
@@ -40,8 +34,10 @@ export default {
 
 <template>
 
+  <h2>Filters</h2>
+
   <ul>
-    <li class="tag" v-for="genre in store[type]" :id="genre.id" :class="selectRandomColor()" @click="filterGenres(genre.id)">
+    <li class="tag" v-for="genre in store[type]" :id="genre.id" :class="selectionOfColors[randomIndex()]" @click="filterGenres(genre.id)">
       {{genre.name}}
     </li>
   </ul>
@@ -49,6 +45,10 @@ export default {
 </template>
 
 <style scoped lang="scss" >
+
+h2{
+  margin-bottom: 35px;
+}
 
 ul{
   display: flex;

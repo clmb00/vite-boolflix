@@ -3,9 +3,9 @@
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 
-import axios from 'axios';
-
 import { store } from './data/store'
+
+import axios from 'axios';
 
 export default{
   name: 'App',
@@ -61,6 +61,7 @@ export default{
             store.genreSeries = response.data.genres
             break;
           default:
+            console.log('error: wrong path / path not supported')
         }
         store.loading = false;
         store.loadingNewPage = false;
@@ -68,10 +69,13 @@ export default{
        .catch((error) => {
         console.log(error)
         store.loading = false;
+        store.loadingNewPage = false;
        })
     },
     searchApiFor(what){
+      // Caso in cui non si scrive nulla
       if (store.querySearch == '') return;
+      // Fai partire il loading
       store.loading = true;
       store.currentPage = 'Search';
       switch(what){
@@ -81,50 +85,45 @@ export default{
         case 'series':
           this.callApi('/search/tv');
           break;
-        default:
+        default: //both
           this.callApi('/search/movie');
           this.callApi('/search/tv');
       }
     },
+    // New page negli slider dei film
     callNewPage(type){
       store.loadingNewPage = true;
       switch (type) {
         case 'movies':
-          store.movies.page++;
-          this.callApi('/search/movie', store.movies.page);
+          this.callApi('/search/movie', ++store.movies.page);
           break;
         case 'series':
-          store.series.page++;
-          this.callApi('/search/tv', store.series.page);
+          this.callApi('/search/tv', ++store.series.page);
           break;
         case 'tmovies':
-          store.trendingMovies.page++;
-          this.callApi('/trending/movie/week', store.trendingMovies.page);
+          this.callApi('/trending/movie/week', ++store.trendingMovies.page);
           return ''
         case 'tseries':
-          store.trendingSeries.page++;
-          this.callApi('/trending/tv/week', store.trendingSeries.page);
+          this.callApi('/trending/tv/week', ++store.trendingSeries.page);
           break;
         case 'topmovies':
-          store.topRatedMovies.page++;
-          this.callApi('/movie/top_rated', store.topRatedMovies.page);
+          this.callApi('/movie/top_rated', ++store.topRatedMovies.page);
           break;
         case 'topseries':
-          store.topRatedSeries.page++;
-          this.callApi('/tv/top_rated', store.topRatedSeries.page);
+          this.callApi('/tv/top_rated', ++store.topRatedSeries.page);
           break;
         case 'popmovies':
-          store.popularMovies.page++;
-          this.callApi('/movie/popular', store.popularMovies.page);
+          this.callApi('/movie/popular', ++store.popularMovies.page);
           break;
         case 'popseries':
-          store.popularSeries.page++;
-          this.callApi('/tv/popular', store.popularSeries.page);
+          this.callApi('/tv/popular', ++store.popularSeries.page);
         }
     },
+    // Load page iniziale e cambio lingua
     loadPage(){
       store.loading = true;
       store.currentPage = 'Home'
+      // Reset - necessario per cambio lingua
       store.movies.array = [];
       store.series.array = [];
       store.trendingMovies.array = [];
@@ -133,6 +132,7 @@ export default{
       store.popularSeries.array = [];
       store.topRatedMovies.array = [];
       store.topRatedSeries.array = [];
+      // ---
       this.callApi('/trending/movie/week');
       this.callApi('/trending/tv/week');
       this.callApi('/movie/popular');
