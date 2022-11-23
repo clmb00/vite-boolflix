@@ -2,6 +2,7 @@
 
 import MainCardContainer from './MainCardContainer.vue';
 import CompLoading from './CompLoading.vue';
+import CompTag from './CompTag.vue';
 
 import { store } from '../data/store';
 
@@ -9,7 +10,8 @@ export default{
   name: 'AppMain',
   components:{
     MainCardContainer,
-    CompLoading
+    CompLoading,
+    CompTag
   },
   data(){
     return{
@@ -46,6 +48,17 @@ export default{
     whiteStars(){
       if (store.popularMovies.array.length == 0) return ''
       else return Math.floor((10 - Math.round(store.popularMovies.array[this.indexJumbo].vote_average))/2);
+    },
+    createGenreTotal(){
+      store.genreTotal = store.genreMovies.concat(store.genreSeries.filter(function(elem){
+        let isThere = false;
+        store.genreMovies.forEach((item) => {
+          if(item.id == elem.id) isThere = true;
+        })
+        return !isThere
+      }));
+      console.log(store.genreTotal);
+      return 'genreTotal'
     }
   }
 }
@@ -76,7 +89,14 @@ export default{
     <div v-show="store.currentPage != 'Home' && !store.loading" class="top-space"></div>
 
     <div class="container" v-show="!store.loading">
-        
+      
+      <div v-show="store.currentPage == 'Search' && store.movies.array.length != 0 || store.currentPage == 'Movies' || store.currentPage == 'Series'">
+        <CompTag :type="createGenreTotal"/>
+      </div>
+      
+      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.movies.array.length != 0" sectionTitle="Movies" type="movies" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.series.array.length != 0" sectionTitle="TV Series" type="series" @newPage="newPage"/>
+
       <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Series'" sectionTitle="Trending TV Series" type="tseries" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Movies'" sectionTitle="Trending Movies" type="tmovies" @newPage="newPage"/>
       
@@ -87,8 +107,6 @@ export default{
       <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Popular Movies" type="popmovies" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Popular Tv Series" type="popseries" @newPage="newPage"/>
 
-      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.movies.array.length != 0" sectionTitle="Movies" type="movies" @newPage="newPage"/>
-      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.series.array.length != 0" sectionTitle="TV Series" type="series" @newPage="newPage"/>
 
       <h4 v-show="store.currentPage == 'Search' && store.series.array.length != 0 || store.currentPage == 'Search' && store.movies.array.length != 0">
         <span v-show="store.adultContent">Parental control is disable, go to your user profile to activate it.</span>

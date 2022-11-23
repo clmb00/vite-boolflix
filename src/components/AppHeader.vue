@@ -11,7 +11,7 @@ export default{
       store,
       showInput: false,
       isUnder50vh: false,
-      activeFlag: 'it',
+      activeFlag: store.apiLang,
       showChangeLang: false,
       showUserMenu: false
     }
@@ -36,6 +36,20 @@ export default{
       store.apiLang = lang;
       this.activeFlag = lang;
       this.$emit('newLoad');
+    },
+    changePage(newPage){
+      this.showInput = false;
+      this.showChangeLang = false;
+      this.showUserMenu = false;
+      store.genreFilter = [];
+      store.currentPage = newPage;
+      const tags = document.getElementsByClassName('tag');
+      console.log(tags);
+      for (let i=0; i<tags.length; i++){
+        if(tags[i].classList.contains('active')){
+          tags[i].classList.remove('active')
+        }
+      };
     }
   },
   computed:{
@@ -55,14 +69,14 @@ export default{
 
   <header :class="{'dark' : isUnder50vh || store.currentPage != 'Home'}">
     <div class="container">
-      <div class="logo" @click="store.currentPage = 'Home'; showInput = false">
+      <div class="logo" @click="changePage('Home')">
         <img src="../assets/img/logo-boolflix.png" alt="Boolflix">
       </div>
       <nav>
         <ul>
-          <li><a href="#" @click="store.currentPage = 'Home'; showInput = false">Home</a></li>
-          <li><a href="#" @click="store.currentPage = 'Series'; showInput = false">TV Shows</a></li>
-          <li><a href="#" @click="store.currentPage = 'Movies'; showInput = false">Movies</a></li>
+          <li><a href="#" @click="changePage('Home')">Home</a></li>
+          <li><a href="#" @click="changePage('Series')">TV Shows</a></li>
+          <li><a href="#" @click="changePage('Movies')">Movies</a></li>
         </ul>
       </nav>
       <div class="inputbox" :class="{hide: !showInput}">
@@ -98,7 +112,7 @@ export default{
           </div>
         </div>
       </div>
-      <button class="caret-down lang" @click="showChangeLang = !showChangeLang"><i class="fa-solid fa-caret-down"></i></button>
+      <button class="caret-down lang" @click="showChangeLang = !showChangeLang; showUserMenu = false"><i class="fa-solid fa-caret-down"></i></button>
     </div>
   </header>
 

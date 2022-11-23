@@ -24,7 +24,8 @@ export default{
     vote: Number,
     urlImg: String,
     overview: String,
-    adult: Boolean
+    adult: Boolean,
+    genreIds: Array
   },
   methods:{
     clickOnCard(){
@@ -63,6 +64,10 @@ export default{
     adultCheck(){
       if (!store.adultContent && this.adult) return false
       else return true
+    },
+    genreCheck(){
+      if (store.genreFilter.length == 0) return true
+      else return this.genreIds.some(item => store.genreFilter.includes(item))
     }
   }
 }
@@ -71,7 +76,7 @@ export default{
 
 <template>
 
-<li class="card" @click="clickOnCard" @mouseover="onCard = true" @mouseleave="onCard = false; frontSide = true" v-show="adultCheck">
+<li class="card" @click="clickOnCard" @mouseover="onCard = true" @mouseleave="onCard = false; frontSide = true" v-show="adultCheck" v-if="genreCheck">
   <div>
     <img :src="checkImageExistance" :alt="title">
     <div class="pointer" v-show="frontSide">

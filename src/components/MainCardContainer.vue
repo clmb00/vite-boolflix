@@ -81,7 +81,8 @@ export default{
         :urlImg="movie.poster_path" 
         :overview="movie.overview"
         :id="movie.id" 
-        :adult="movie.adult"
+        :adult="movie.adult" 
+        :genreIds="movie.genre_ids"
         class="card"
         />
         <li class="loading-page-icon" v-if="store.loadingNewPage">

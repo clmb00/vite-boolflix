@@ -4,12 +4,16 @@ export const store = reactive({
   apiUrl: 'https://api.themoviedb.org/3',
   apiPath: '/search/movie', 
   apiKey: '12cd508e26aee626964e63fcf50464ab',
-  apiLang: 'it-IT',
+  apiLang: 'es',
   querySearch: '',
   lastSearch: '',
   loading: true,
   loadingNewPage: false,
   adultContent: true,
+  genreMovies: [],
+  genreSeries: [],
+  genreTotal: [],
+  genreFilter: [],
   movies: {
     array: [],
     page: 1

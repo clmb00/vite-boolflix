@@ -51,8 +51,14 @@ export default{
           case '/tv/popular':
             store.popularSeries.array = store.popularSeries.array.concat(response.data.results);
             break;
-            case '/tv/top_rated':
+          case '/tv/top_rated':
             store.topRatedSeries.array = store.topRatedSeries.array.concat(response.data.results);
+            break;
+          case '/genre/movie/list':
+            store.genreMovies = response.data.genres
+            break;
+          case '/genre/tv/list':
+            store.genreSeries = response.data.genres
             break;
           default:
         }
@@ -134,6 +140,8 @@ export default{
       this.callApi('/movie/top_rated');
       this.callApi('/tv/popular');
       this.callApi('/tv/top_rated');
+      this.callApi('/genre/movie/list');
+      this.callApi('/genre/tv/list');
     }
   },
   mounted(){
