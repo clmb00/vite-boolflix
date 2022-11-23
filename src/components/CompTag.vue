@@ -7,7 +7,8 @@ export default {
   data(){
     return{
       store,
-      selectionOfColors: ['red', 'orange', 'yellow', 'green', 'blue']
+      selectionOfColors: ['red', 'orange', 'yellow', 'green', 'blue', 'purple'],
+      lastColor: ''
     }
   },
   props:{
@@ -15,7 +16,12 @@ export default {
   },
   methods:{
     selectRandomColor(){
-      return this.selectionOfColors[Math.floor(Math.random() * this.selectionOfColors.length)]
+      let rnd_color;
+      do{
+        rnd_color = this.selectionOfColors[Math.floor(Math.random() * this.selectionOfColors.length)]
+      } while(rnd_color == this.lastColor)
+      this.lastColor = rnd_color;
+      return rnd_color
     },
     filterGenres(id){
       const tag = document.getElementById(id);
@@ -26,7 +32,6 @@ export default {
         tag.classList.add('active');
         store.genreFilter.push(id)
       }
-      console.log(store.genreFilter);
     }
   }
 }
@@ -79,6 +84,9 @@ ul{
     }
     &.blue{
       background-color: #6fa8dc;
+    }
+    &.purple{
+      background-color: #c36fdc;
     }
   }
 }

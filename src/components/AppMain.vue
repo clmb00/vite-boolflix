@@ -16,7 +16,7 @@ export default{
   data(){
     return{
       store,
-      indexJumbo: 15
+      indexJumbo: 16
     }
   },
   methods:{
@@ -27,7 +27,7 @@ export default{
   computed:{
     urlBackImage(){
       if (store.popularMovies.array.length == 0) return ''
-      else return 'https://image.tmdb.org/t/p/' + 'w1280' + store.popularMovies.array[this.indexJumbo].backdrop_path
+      else return 'https://image.tmdb.org/t/p/' + 'original' + store.popularMovies.array[this.indexJumbo].backdrop_path
     },
     titleJumbo(){
       if (store.popularMovies.array.length == 0) return ''
@@ -57,7 +57,6 @@ export default{
         })
         return !isThere
       }));
-      console.log(store.genreTotal);
       return 'genreTotal'
     }
   }
@@ -114,7 +113,7 @@ export default{
       </h4>
 
       <h2 v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0">We didn't find any matches for <i>"{{store.lastSearch}}"</i>.</h2>
-      <MainCardContainer v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0" sectionTitle="Browse our most Popular Movies: " type="popmovies" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0" sectionTitle="Browse our most Popular Movies: " type="popmovies-two" @newPage="newPage"/>
 
     </div>
 
@@ -161,7 +160,6 @@ h4{
     width: 100%;
     height: 100%;
     object-fit: scale-down;
-    object-position: center;
     background-color: black;
   }
   h1{

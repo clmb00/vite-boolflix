@@ -121,7 +121,6 @@ export default{
           store.popularSeries.page++;
           this.callApi('/tv/popular', store.popularSeries.page);
         }
-      console.log(type)
     },
     loadPage(){
       store.loading = true;

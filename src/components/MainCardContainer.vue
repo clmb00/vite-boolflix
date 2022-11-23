@@ -24,11 +24,14 @@ export default{
   },
   methods:{
     scrolltToLeft(){
+      console.log('left');
       const ul = document.getElementById(this.type);
       ul.scrollLeft -= this.scrollValue;
     },
     scrollToRight(){
+      console.log('right');
       const ul = document.getElementById(this.type);
+      console.log(ul);
       ul.scrollLeft += this.scrollValue;
     },
     loadNew(){
@@ -39,7 +42,6 @@ export default{
   computed:{
     checkType(){
       if (this.type=='movies') {
-        console.log(store.movies.array)
         return store.movies.array
       } else if (this.type=='series') {
         return store.series.array
@@ -52,6 +54,8 @@ export default{
       } else if (this.type=='topseries') {
         return store.topRatedSeries.array
       } else if (this.type=='popmovies') {
+        return store.popularMovies.array
+      } else if (this.type=='popmovies-two') {
         return store.popularMovies.array
       } else if (this.type=='popseries') {
         return store.popularSeries.array

@@ -26,7 +26,20 @@ export default{
       this.showChangeLang = false;
       this.showUserMenu = false;
     },
+    reset(){
+      this.showInput = false;
+      this.showChangeLang = false;
+      this.showUserMenu = false;
+      store.genreFilter = [];
+      const tags = document.getElementsByClassName('tag');
+      for (let i=0; i<tags.length; i++){
+        if(tags[i].classList.contains('active')){
+          tags[i].classList.remove('active')
+        }
+      };
+    },
     search(){
+      this.reset();
       this.$emit('newSearch');
       store.movies.array = [];
       store.series.array = [];
@@ -38,18 +51,8 @@ export default{
       this.$emit('newLoad');
     },
     changePage(newPage){
-      this.showInput = false;
-      this.showChangeLang = false;
-      this.showUserMenu = false;
-      store.genreFilter = [];
+      this.reset();
       store.currentPage = newPage;
-      const tags = document.getElementsByClassName('tag');
-      console.log(tags);
-      for (let i=0; i<tags.length; i++){
-        if(tags[i].classList.contains('active')){
-          tags[i].classList.remove('active')
-        }
-      };
     }
   },
   computed:{
