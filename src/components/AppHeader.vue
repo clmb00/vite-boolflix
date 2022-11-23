@@ -7,8 +7,18 @@ export default{
   data(){
     return{
       store,
-      showInput: false
+      showInput: false,
+      isUnder50vh: false
     }
+  },
+  methods:{
+    handleScroll(){
+      if (window.scrollY > window.innerHeight * 0.5) this.isUnder50vh = true;
+      else this.isUnder50vh = false;
+    }
+  },
+  mounted(){
+    window.addEventListener('scroll', this.handleScroll);
   }
 }
 
@@ -16,7 +26,7 @@ export default{
 
 <template>
 
-  <header>
+  <header :class="{'dark' : isUnder50vh || store.currentPage != 'Home'}">
     <div class="container">
       <div class="logo" @click="store.currentPage = 'Home'">
         <img src="../assets/img/logo-boolflix.png" alt="Boolflix">
@@ -52,6 +62,10 @@ header{
   top: 0;
   left: 0;
   z-index: 999;
+  transition: all 1s ease;
+  &.dark{
+    background: #000000;
+  }
 }
 .container{
   height: 100px;
@@ -61,6 +75,7 @@ header{
   .logo{
     width: 140px;
     margin-right: 50px;
+    cursor: pointer;
   }
 
   nav{

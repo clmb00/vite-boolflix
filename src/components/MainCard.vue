@@ -53,6 +53,10 @@ export default{
     },
     hideDesc(){
       return (this.onCard && !this.frontSide) ? '' : 'hide'
+    },
+    checkImageExistance(){
+      if(this.urlImg == null) return "https://media.istockphoto.com/vectors/no-image-available-icon-vector-id1216251206?k=6&m=1216251206&s=612x612&w=0&h=G8kmMKxZlh7WyeYtlIHJDxP5XRGm9ZXyLprtVJKxd-o="
+      else return this.basicUrlImg + this.sizeImg + this.urlImg
     }
   }
 }
@@ -63,7 +67,7 @@ export default{
 
 <li class="card" @click="clickOnCard" @mouseover="onCard = true" @mouseleave="onCard = false; frontSide = true">
   <div>
-    <img :src="basicUrlImg + sizeImg + urlImg" :alt="title">
+    <img :src="checkImageExistance" :alt="title">
     <div class="pointer" v-show="frontSide">
       <i class="fa-regular fa-circle-dot"></i>
     </div>
@@ -93,6 +97,9 @@ export default{
 
 img{
   vertical-align: middle;
+  width: $width-card;
+  height: $height-card;
+  object-fit: cover;
 }
 .card{
   width: $width-card;
@@ -144,6 +151,7 @@ ul{
   bottom: 0;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   height: 100%;
   padding: 5px;
   background-color: rgba($color: #000, $alpha: .8);

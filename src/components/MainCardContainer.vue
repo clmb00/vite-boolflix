@@ -100,23 +100,12 @@ h2{
 
 ul{
   display: flex;
-  // grid-auto-flow: column;
   column-gap: 8px;
   padding-inline: 80px;
   padding-block: 60px;
 
-  overflow-x: auto;
+  overflow-x: hidden;
   scroll-behavior: smooth;
-  // snap at the start of cards when scroll
-  scroll-snap-type: inline mandatory;
-  &>*{
-    scroll-snap-align: start;
-  }
-
-  li:first-child{
-    padding-inline: 25px;
-    padding-left: 60px;
-  }
 
   li:last-child{
     color: white;
@@ -130,13 +119,12 @@ ul{
 }
 
 .group{
-  margin-bottom: 60px;
-  width: 100%;
   position: relative;
 }
 
 .scroll{
   color: white;
+  text-shadow: 0 0 5px black;
   width: 80px;
   height: $height-card;
   display: flex;

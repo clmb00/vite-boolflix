@@ -46,10 +46,10 @@ export default{
             store.popularMovies.array = store.popularMovies.array.concat(response.data.results);
             break;
           case '/movie/top_rated':
-            store.topRatedMovies.array = store.popularSeries.array.concat(response.data.results);
+            store.topRatedMovies.array = store.topRatedMovies.array.concat(response.data.results);
             break;
           case '/tv/popular':
-            store.popularSeries.array = store.topRatedMovies.array.concat(response.data.results);
+            store.popularSeries.array = store.popularSeries.array.concat(response.data.results);
             break;
             case '/tv/top_rated':
             store.topRatedSeries.array = store.topRatedSeries.array.concat(response.data.results);
