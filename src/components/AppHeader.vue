@@ -130,7 +130,7 @@ header{
     color: white;
     border: none;
     outline: none;
-    font-weight: bold;
+    font-size: 1.1rem;
     border-bottom: 2px solid white;
     &::placeholder{
       color: #c7c7c7;

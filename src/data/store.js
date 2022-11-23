@@ -7,6 +7,7 @@ export const store = reactive({
   apiLang: 'it-IT',
   querySearch: '',
   lastSearch: '',
+  loading: true,
   movies: {
     array: [],
     page: 1

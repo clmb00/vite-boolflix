@@ -20,6 +20,7 @@ export default{
   },
   methods:{
     callApi(path, page = 1){
+      store.loading = true;
       axios.get(store.apiUrl + path, {
         params: {
           api_key: store.apiKey,
@@ -56,9 +57,11 @@ export default{
             break;
           default:
         }
+        store.loading = false;
        })
        .catch((error) => {
         console.log(error)
+        store.loading = false;
        })
     },
     searchApiFor(what){
