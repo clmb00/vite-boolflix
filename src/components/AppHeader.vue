@@ -15,6 +15,12 @@ export default{
     handleScroll(){
       if (window.scrollY > window.innerHeight * 0.5) this.isUnder50vh = true;
       else this.isUnder50vh = false;
+    },
+    search(){
+      this.$emit('newSearch');
+      store.movies.array = [];
+      store.series.array = [];
+      store.lastSearch = store.querySearch;
     }
   },
   mounted(){
@@ -39,11 +45,11 @@ export default{
         </ul>
       </nav>
       <div class="inputbox" :class="{hide: !showInput}">
-        <input @keyup.enter="$emit('newSearch')" type="text" v-model.trim="store.querySearch" placeholder="Cerca qualcosa">
+        <input @keyup.enter="search" type="text" v-model.trim="store.querySearch" placeholder="Cerca qualcosa">
         <button @click="showInput = !showInput; store.querySearch = ''" class="x_btn"><i class="fa-solid fa-xmark"></i></button>
       </div>
+      <button @click="search" v-show="showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button @click="showInput = !showInput" v-show="!showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
-      <button @click="$emit('newSearch')" v-show="showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button><i class="fa-solid fa-bell"></i></button>
       <button><i class="fa-solid fa-circle-user"></i></button>
       <button><i class="fa-solid fa-caret-down"></i></button>

@@ -71,12 +71,15 @@ export default{
     <div class="container">
       <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Series'" sectionTitle="Trending TV Series" type="tseries" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Movies'" sectionTitle="Trending Movies" type="tmovies" @newPage="newPage"/>
+
       <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Popular Movies" type="popmovies" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Top Rated Movies" type="topmovies" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Popular Tv Series" type="popseries" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Top Rated Tv Series" type="topseries" @newPage="newPage"/>
+
       <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.movies.array.length != 0" sectionTitle="Movies" type="movies" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.series.array.length != 0" sectionTitle="TV Series" type="series" @newPage="newPage"/>
+      <h2 v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0">Non abbiamo trovato nessun risultato con la ricerca: <i>"{{store.lastSearch}}""</i></h2>
     </div>
 
   </main>

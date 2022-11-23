@@ -93,11 +93,6 @@ export default{
 
 @use "../styles/partials/variables.scss" as *;
 
-h2{
-  color: white;
-  font-size: 1.8rem;
-}
-
 ul{
   display: flex;
   column-gap: 8px;
