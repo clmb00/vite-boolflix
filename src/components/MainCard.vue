@@ -24,6 +24,13 @@ export default{
     urlImg: String,
     overview: String
   },
+  methods:{
+    clickOnCard(){
+      this.frontSide = !this.frontSide;
+      const ul = document.querySelector('.group > ul')
+      ul.scrollIntoView;
+    }
+  },
   computed:{
     createFlag(){
       this.correctCode = "";
@@ -45,8 +52,6 @@ export default{
       return Math.floor((10 - Math.round(this.vote))/2);
     },
     hideDesc(){
-      console.log(this.frontSide);
-      console.log(this.onCard);
       return (this.onCard && !this.frontSide) ? '' : 'hide'
     }
   }
@@ -56,7 +61,7 @@ export default{
 
 <template>
 
-<li class="card" @click="frontSide = !frontSide" @mouseover="onCard = true" @mouseleave="onCard = false; frontSide = true">
+<li class="card" @click="clickOnCard" @mouseover="onCard = true" @mouseleave="onCard = false; frontSide = true">
   <div>
     <img :src="basicUrlImg + sizeImg + urlImg" :alt="title">
     <div class="pointer" v-show="frontSide">
@@ -90,8 +95,8 @@ img{
   vertical-align: middle;
 }
 .card{
-  width: 200px;
-  height: 300px;
+  width: $width-card;
+  height: $height-card;
   flex-shrink: 0;
   border-radius: 10px;
   overflow: hidden;

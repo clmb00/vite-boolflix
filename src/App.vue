@@ -19,39 +19,40 @@ export default{
     }
   },
   methods:{
-    callApi(path){
+    callApi(path, page = 1){
       axios.get(store.apiUrl + path, {
         params: {
           api_key: store.apiKey,
           language: store.apiLang,
-          query: store.querySearch
+          query: store.querySearch,
+          page
         }
       })
        .then((response) => {
         switch(path){
           case '/search/movie':
-            store.moviesArray = [...response.data.results];
+            store.movies.array = store.movies.array.concat(response.data.results);
             break;
           case '/search/tv':
-            store.seriesArray = [...response.data.results];
+            store.series.array = store.series.array.concat(response.data.results);
             break;
           case '/trending/movie/week':
-            store.trendingMovies = [...response.data.results];
+            store.trendingMovies.array = store.trendingMovies.array.concat(response.data.results);
             break;
           case '/trending/tv/week':
-            store.trendingSeries = [...response.data.results];
+            store.trendingSeries.array = store.trendingSeries.array.concat(response.data.results);
             break;
           case '/movie/popular':
-            store.popularMovies = [...response.data.results];
+            store.popularMovies.array = store.popularMovies.array.concat(response.data.results);
             break;
           case '/movie/top_rated':
-            store.topRatedMovies = [...response.data.results];
+            store.topRatedMovies.array = store.popularSeries.array.concat(response.data.results);
             break;
           case '/tv/popular':
-            store.popularSeries = [...response.data.results];
+            store.popularSeries.array = store.topRatedMovies.array.concat(response.data.results);
             break;
             case '/tv/top_rated':
-            store.topRatedSeries = [...response.data.results];
+            store.topRatedSeries.array = store.topRatedSeries.array.concat(response.data.results);
             break;
           default:
         }
@@ -73,6 +74,42 @@ export default{
           this.callApi('/search/movie');
           this.callApi('/search/tv');
       }
+    },
+    callNewPage(type){
+      switch (type) {
+        case 'movies':
+          store.movies.page++;
+          this.callApi('/search/movie', store.movies.page);
+          break;
+        case 'series':
+          store.series.page++;
+          this.callApi('/search/tv', store.series.page);
+          break;
+        case 'tmovies':
+          store.trendingMovies.page++;
+          this.callApi('/trending/movie/week', store.trendingMovies.page);
+          return ''
+        case 'tseries':
+          store.trendingSeries.page++;
+          this.callApi('/trending/tv/week', store.trendingSeries.page);
+          break;
+        case 'topmovies':
+          store.topRatedMovies.page++;
+          this.callApi('/movie/top_rated', store.topRatedMovies.page);
+          break;
+        case 'topseries':
+          store.topRatedSeries.page++;
+          this.callApi('/tv/top_rated', store.topRatedSeries.page);
+          break;
+        case 'popmovies':
+          store.popularMovies.page++;
+          this.callApi('/movie/popular', store.popularMovies.page);
+          break;
+        case 'popseries':
+          store.popularSeries.page++;
+          this.callApi('/tv/popular', store.popularSeries.page);
+        }
+      console.log(type)
     }
   },
   mounted(){
@@ -90,7 +127,7 @@ export default{
 <template>
 
   <AppHeader @newSearch="searchApiFor('both')"/>
-  <AppMain/>
+  <AppMain @callNewPage="callNewPage"/>
 
 </template>
 

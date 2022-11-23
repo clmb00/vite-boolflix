@@ -30,7 +30,7 @@ export default{
       </nav>
       <div class="inputbox" :class="{hide: !showInput}">
         <input @keyup.enter="$emit('newSearch')" type="text" v-model.trim="store.querySearch" placeholder="Cerca qualcosa">
-        <button @click="showInput = !showInput" class="x_btn"><i class="fa-solid fa-xmark"></i></button>
+        <button @click="showInput = !showInput; store.querySearch = ''" class="x_btn"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <button @click="showInput = !showInput" v-show="!showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button @click="$emit('newSearch')" v-show="showInput"><i class="fa-solid fa-magnifying-glass"></i></button>

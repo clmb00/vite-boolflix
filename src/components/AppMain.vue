@@ -12,33 +12,38 @@ export default{
   data(){
     return{
       store,
-      indexJumbo: 15
+      indexJumbo: 16
+    }
+  },
+  methods:{
+    newPage(type){
+      this.$emit('callNewPage', type);
     }
   },
   computed:{
     urlBackImage(){
-      if (store.popularMovies.length == 0) return ''
-      else return 'https://image.tmdb.org/t/p/' + 'w1280' + store.popularMovies[this.indexJumbo].backdrop_path
+      if (store.popularMovies.array.length == 0) return ''
+      else return 'https://image.tmdb.org/t/p/' + 'w1280' + store.popularMovies.array[this.indexJumbo].backdrop_path
     },
     titleJumbo(){
-      if (store.popularMovies.length == 0) return ''
-      else return store.popularMovies[this.indexJumbo].title
+      if (store.popularMovies.array.length == 0) return ''
+      else return store.popularMovies.array[this.indexJumbo].title
     },
     subTitleJumbo(){
-      if (store.popularMovies.length == 0) return ''
-      else return store.popularMovies[this.indexJumbo].overview
+      if (store.popularMovies.array.length == 0) return ''
+      else return store.popularMovies.array[this.indexJumbo].overview
     },
     fullStars(){
-      if (store.popularMovies.length == 0) return ''
-      else return Math.floor(Math.round(store.popularMovies[this.indexJumbo].vote_average)/2);
+      if (store.popularMovies.array.length == 0) return ''
+      else return Math.floor(Math.round(store.popularMovies.array[this.indexJumbo].vote_average)/2);
     },
     halfStars(){
-      if (store.popularMovies.length == 0) return ''
-      else return Math.round(store.popularMovies[this.indexJumbo].vote_average)%2;
+      if (store.popularMovies.array.length == 0) return ''
+      else return Math.round(store.popularMovies.array[this.indexJumbo].vote_average)%2;
     },
     whiteStars(){
-      if (store.popularMovies.length == 0) return ''
-      else return Math.floor((10 - Math.round(store.popularMovies[this.indexJumbo].vote_average))/2);
+      if (store.popularMovies.array.length == 0) return ''
+      else return Math.floor((10 - Math.round(store.popularMovies.array[this.indexJumbo].vote_average))/2);
     }
   }
 }
@@ -64,14 +69,14 @@ export default{
     <div v-if="store.currentPage != 'Home'" class="top-space"></div>
 
     <div class="container">
-      <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Series'" sectionTitle="Trending TV Series" type="tseries"/>
-      <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Movies'" sectionTitle="Trending Movies" type="tmovies"/>
-      <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Popular Movies" type="popmovies"/>
-      <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Top Rated Movies" type="topmovies"/>
-      <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Popular Tv Series" type="popseries"/>
-      <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Top Rated Tv Series" type="topseries"/>
-      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.moviesArray.length != 0" sectionTitle="Movies" type="movies"/>
-      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.seriesArray.length != 0" sectionTitle="TV Series" type="series"/>
+      <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Series'" sectionTitle="Trending TV Series" type="tseries" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Home' || store.currentPage == 'Movies'" sectionTitle="Trending Movies" type="tmovies" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Popular Movies" type="popmovies" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Movies'" sectionTitle="Top Rated Movies" type="topmovies" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Popular Tv Series" type="popseries" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Series'" sectionTitle="Top Rated Tv Series" type="topseries" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.movies.array.length != 0" sectionTitle="Movies" type="movies" @newPage="newPage"/>
+      <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.series.array.length != 0" sectionTitle="TV Series" type="series" @newPage="newPage"/>
     </div>
 
   </main>
