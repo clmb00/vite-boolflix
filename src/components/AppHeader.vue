@@ -1,5 +1,7 @@
 <script>
 
+import CompToggle from './CompToggle.vue';
+
 import { store } from '../data/store';
 
 export default{
@@ -10,13 +12,19 @@ export default{
       showInput: false,
       isUnder50vh: false,
       activeFlag: 'it',
-      showChangeLang: false
+      showChangeLang: false,
+      showUserMenu: false
     }
+  },
+  components:{
+    CompToggle
   },
   methods:{
     handleScroll(){
       if (window.scrollY > window.innerHeight * 0.5) this.isUnder50vh = true;
       else this.isUnder50vh = false;
+      this.showChangeLang = false;
+      this.showUserMenu = false;
     },
     search(){
       this.$emit('newSearch');
@@ -47,14 +55,14 @@ export default{
 
   <header :class="{'dark' : isUnder50vh || store.currentPage != 'Home'}">
     <div class="container">
-      <div class="logo" @click="store.currentPage = 'Home'">
+      <div class="logo" @click="store.currentPage = 'Home'; showInput = false">
         <img src="../assets/img/logo-boolflix.png" alt="Boolflix">
       </div>
       <nav>
         <ul>
-          <li><a href="#" @click="store.currentPage = 'Home'">Home</a></li>
-          <li><a href="#" @click="store.currentPage = 'Series'">TV Shows</a></li>
-          <li><a href="#" @click="store.currentPage = 'Movies'">Movies</a></li>
+          <li><a href="#" @click="store.currentPage = 'Home'; showInput = false">Home</a></li>
+          <li><a href="#" @click="store.currentPage = 'Series'; showInput = false">TV Shows</a></li>
+          <li><a href="#" @click="store.currentPage = 'Movies'; showInput = false">Movies</a></li>
         </ul>
       </nav>
       <div class="inputbox" :class="{hide: !showInput}">
@@ -63,10 +71,16 @@ export default{
       </div>
       <button @click="search" v-show="showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
       <button @click="showInput = !showInput" v-show="!showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
-      <button><i class="fa-solid fa-bell"></i></button>
-      <button><i class="fa-solid fa-circle-user"></i></button>
-      <button class="caret-down"><i class="fa-solid fa-caret-down"></i></button>
-      <div class="flag active" @click="showChangeLang = !showChangeLang">
+      <button @click="showUserMenu = !showUserMenu; showChangeLang = false" class="menu">
+        <i class="fa-solid fa-circle-user"></i>
+
+        <div class="menu-container" v-if="showUserMenu">
+          <p>Parental control: </p>
+          <CompToggle @click.stop="store.adultContent = !store.adultContent" />
+        </div>
+      </button>
+      <button @click="showUserMenu = !showUserMenu; showChangeLang = false" class="caret-down"><i class="fa-solid fa-caret-down"></i></button>
+      <div class="flag active" @click="showChangeLang = !showChangeLang; showUserMenu = false">
         <span class="fi" :class="activeFlagImg"></span>
 
         <div class="change-flag-container" v-if="showChangeLang">
@@ -158,7 +172,7 @@ header{
     }
   }
 
-  input{
+  input[type='text']{
     background-color: rgba($color: #000000, $alpha: .5);
     padding: 8px 5px;
     min-width: 250px;
@@ -208,6 +222,28 @@ header{
   text-align: center;
   &>*{
     margin-bottom: 4px;
+  }
+}
+
+.menu{
+  position: relative;
+
+  .menu-container{
+    position: absolute;
+    top: 50px;
+    left: -75px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 1rem;
+    width: 200px;
+    // text-align: center;
+    padding-block: .5rem;
+    padding-inline: .5rem;
+    p{
+      font-size: 1rem;
+      color: black;
+      font-weight: bold;
+      margin-block: 1rem;
+    }
   }
 }
 

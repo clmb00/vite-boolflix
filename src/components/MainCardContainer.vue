@@ -39,6 +39,7 @@ export default{
   computed:{
     checkType(){
       if (this.type=='movies') {
+        console.log(store.movies.array)
         return store.movies.array
       } else if (this.type=='series') {
         return store.series.array
@@ -79,7 +80,8 @@ export default{
         :vote="movie.vote_average" 
         :urlImg="movie.poster_path" 
         :overview="movie.overview"
-        :id="movie.id"
+        :id="movie.id" 
+        :adult="movie.adult"
         class="card"
         />
         <li class="loading-page-icon" v-if="store.loadingNewPage">

@@ -3,6 +3,7 @@
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 import supportedLanguages from '../data/languageTOcountry.js';
+import { store } from "../data/store";
 
 export default{
   name: 'MainCard',
@@ -22,7 +23,8 @@ export default{
     lang: String,
     vote: Number,
     urlImg: String,
-    overview: String
+    overview: String,
+    adult: Boolean
   },
   methods:{
     clickOnCard(){
@@ -57,6 +59,10 @@ export default{
     checkImageExistance(){
       if(this.urlImg == null) return "https://media.istockphoto.com/vectors/no-image-available-icon-vector-id1216251206?k=6&m=1216251206&s=612x612&w=0&h=G8kmMKxZlh7WyeYtlIHJDxP5XRGm9ZXyLprtVJKxd-o="
       else return this.basicUrlImg + this.sizeImg + this.urlImg
+    },
+    adultCheck(){
+      if (!store.adultContent && this.adult) return false
+      else return true
     }
   }
 }
@@ -65,7 +71,7 @@ export default{
 
 <template>
 
-<li class="card" @click="clickOnCard" @mouseover="onCard = true" @mouseleave="onCard = false; frontSide = true">
+<li class="card" @click="clickOnCard" @mouseover="onCard = true" @mouseleave="onCard = false; frontSide = true" v-show="adultCheck">
   <div>
     <img :src="checkImageExistance" :alt="title">
     <div class="pointer" v-show="frontSide">

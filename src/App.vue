@@ -65,8 +65,8 @@ export default{
        })
     },
     searchApiFor(what){
-      store.loading = true;
       if (store.querySearch == '') return;
+      store.loading = true;
       store.currentPage = 'Search';
       switch(what){
         case 'movies':

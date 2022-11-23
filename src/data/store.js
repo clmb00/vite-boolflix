@@ -9,6 +9,7 @@ export const store = reactive({
   lastSearch: '',
   loading: true,
   loadingNewPage: false,
+  adultContent: true,
   movies: {
     array: [],
     page: 1

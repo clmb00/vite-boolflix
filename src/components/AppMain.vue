@@ -90,6 +90,11 @@ export default{
       <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.movies.array.length != 0" sectionTitle="Movies" type="movies" @newPage="newPage"/>
       <MainCardContainer v-show="store.currentPage == 'Search'" v-if="store.series.array.length != 0" sectionTitle="TV Series" type="series" @newPage="newPage"/>
 
+      <h4 v-show="store.currentPage == 'Search' && store.series.array.length != 0 || store.currentPage == 'Search' && store.movies.array.length != 0">
+        <span v-show="store.adultContent">Parental control is disable, go to your user profile to activate it.</span>
+        <span v-show="!store.adultContent">Parental control is active, your search is safe!</span>
+      </h4>
+
       <h2 v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0">We didn't find any matches for <i>"{{store.lastSearch}}"</i>.</h2>
       <MainCardContainer v-show="store.currentPage == 'Search' && store.series.array.length == 0 && store.movies.array.length == 0" sectionTitle="Browse our most Popular Movies: " type="popmovies" @newPage="newPage"/>
 
@@ -109,6 +114,10 @@ main{
 
 h2{
   margin-bottom: 50px;
+}
+
+h4{
+  color: white;
 }
 
 .top-space{
