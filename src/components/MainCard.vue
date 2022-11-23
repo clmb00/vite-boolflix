@@ -73,7 +73,7 @@ export default{
     </div>
     <ul :class="hideDesc">
       <li class="title">{{title}}</li>
-      <li class="title-two">{{originalTitle}}</li>
+      <li class="title-two" v-if="title != originalTitle">{{originalTitle}}</li>
       <li class="flag">
         <span class="fi" :class="createFlag">{{displayName}}</span>
       </li>
