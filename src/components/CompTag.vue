@@ -18,11 +18,16 @@ export default {
       return Math.floor(Math.random() * this.selectionOfColors.length)
     },
     filterGenres(id){
+      // Selezionami il tag cliccato
       const tag = document.getElementById(id);
+      // Se è già attivo
       if(tag.classList.contains('active')){
+        // Rimuovimi la classe attivo
         tag.classList.remove('active');
+        // E toglimi l'id di quel filter nell'array dei filtri globale
         store.genreFilter = store.genreFilter.filter((elem) => elem != id);
       } else {
+        // Se non è attivo, aggiugni calsse e push nell'array globale dei filtri
         tag.classList.add('active');
         store.genreFilter.push(id)
       }
@@ -44,7 +49,7 @@ export default {
 
 </template>
 
-<style scoped lang="scss" >
+<style lang="scss" scoped>
 
 h2{
   margin-bottom: 35px;
@@ -63,12 +68,12 @@ ul{
     cursor: pointer;
     padding: .5rem 1rem;
     border-radius: 50px;
-    filter: brightness(.2);
+    filter: brightness(.3);
     &:hover{
-      filter: brightness(.4);
+      filter: brightness(.5);
     }
     &.active{
-      filter: brightness(.8);
+      filter: brightness(.9);
     }
     &.red{
       background-color: #fc543a;

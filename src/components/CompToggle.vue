@@ -49,7 +49,7 @@ export default {
   border-radius: 50%;
   text-transform: uppercase;
   font-weight: bold;
-  text-indent: -22px;
+  text-indent: -28px;
   word-spacing: 35px;
   line-height: 28px;
   color: #fff;

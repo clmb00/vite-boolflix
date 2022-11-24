@@ -10,7 +10,7 @@ export default{
     return{
       store,
       showInput: false,
-      isUnder50vh: false,
+      noTrasparencyHeader: false,
       activeFlag: store.apiLang,
       showChangeLang: false,
       showUserMenu: false
@@ -21,8 +21,10 @@ export default{
   },
   methods:{
     handleScroll(){
-      if (window.scrollY > window.innerHeight * 0.5) this.isUnder50vh = true;
-      else this.isUnder50vh = false;
+      // scroll under 60vh -> header full black
+      if (window.scrollY > window.innerHeight * 0.6) this.noTrasparencyHeader = true;
+      else this.noTrasparencyHeader = false;
+      // Rimuovi menu aperti
       this.showChangeLang = false;
       this.showUserMenu = false;
     },
@@ -70,7 +72,7 @@ export default{
 
 <template>
 
-  <header :class="{'dark' : isUnder50vh || store.currentPage != 'Home'}">
+  <header :class="{'dark' : noTrasparencyHeader || store.currentPage != 'Home'}">
     <div class="container">
       <div class="logo" @click="changePage('Home')">
         <img src="../assets/img/logo-boolflix.png" alt="Boolflix">
@@ -82,12 +84,19 @@ export default{
           <li><a href="#" @click="changePage('Movies')">Movies</a></li>
         </ul>
       </nav>
+
       <div class="inputbox" :class="{hide: !showInput}">
+        <!-- Input di ricerca -->
         <input @keyup.enter="search" type="text" v-model.trim="store.querySearch" placeholder="Search">
+        <!-- Button per chiudere la barra di ricerca -->
         <button @click="showInput = !showInput; store.querySearch = ''" class="x_btn"><i class="fa-solid fa-xmark"></i></button>
       </div>
+      <!-- Button per ricercare -->
       <button @click="search" v-show="showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <!-- Button per far comparrie la barra di ricerca -->
       <button @click="showInput = !showInput" v-show="!showInput"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+      <!-- Menu user -->
       <button @click="showUserMenu = !showUserMenu; showChangeLang = false" class="menu">
         <i class="fa-solid fa-circle-user"></i>
 
@@ -97,6 +106,8 @@ export default{
         </div>
       </button>
       <button @click="showUserMenu = !showUserMenu; showChangeLang = false" class="caret-down"><i class="fa-solid fa-caret-down"></i></button>
+
+      <!-- Menu change language -->
       <div class="flag active" @click="showChangeLang = !showChangeLang; showUserMenu = false">
         <span class="fi" :class="activeFlagImg"></span>
 
@@ -116,6 +127,7 @@ export default{
         </div>
       </div>
       <button class="caret-down lang" @click="showChangeLang = !showChangeLang; showUserMenu = false"><i class="fa-solid fa-caret-down"></i></button>
+
     </div>
   </header>
 
@@ -148,7 +160,6 @@ header{
   }
 
   nav{
-    // margin-right: auto;
     flex-grow: 1;
     li{
       display: inline-block;
@@ -184,14 +195,14 @@ header{
       margin: 0;
       height: 100%;
       border-bottom: 2px solid white;
-      padding-inline: 3px;
+      padding-inline: 5px;
       background-color: rgba($color: #000000, $alpha: .5);
     }
   }
 
   input[type='text']{
     background-color: rgba($color: #000000, $alpha: .5);
-    padding: 8px 5px;
+    padding: 8px;
     min-width: 250px;
     height: 100%;
     color: white;

@@ -24,14 +24,11 @@ export default{
   },
   methods:{
     scrolltToLeft(){
-      console.log('left');
       const ul = document.getElementById(this.type);
       ul.scrollLeft -= this.scrollValue;
     },
     scrollToRight(){
-      console.log('right');
       const ul = document.getElementById(this.type);
-      console.log(ul);
       ul.scrollLeft += this.scrollValue;
     },
     loadNew(){
@@ -69,12 +66,15 @@ export default{
 <template>
 
     <div class="group">
+
       <h2>{{sectionTitle}}</h2>
+
       <div class="scroll s-left" @click="scrolltToLeft">
         <i class="fa-solid fa-chevron-left"></i>
       </div>
+
       <ul :id="type">
-        <li><i class="white-space"></i></li>
+        
         <MainCard
         v-for="(movie, i) in checkType" 
         :key="i" 
@@ -89,16 +89,21 @@ export default{
         :genreIds="movie.genre_ids"
         class="card"
         />
+
         <li class="loading-page-icon" v-if="store.loadingNewPage">
           <CompLoading scale="small"/>
         </li>
+
         <li @click="loadNew" v-else>
           <i class="fa-solid fa-circle-plus"></i>
         </li>
+
       </ul>
+
       <div class="scroll s-right" @click="scrollToRight">
         <i class="fa-solid fa-chevron-right"></i>
       </div>
+
     </div>
 
 </template>

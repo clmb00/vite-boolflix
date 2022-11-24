@@ -19,7 +19,8 @@ export default{
     return{
       store,
       indexJumbo: 10,
-      timerSlider: 8 //secondi
+      timerSlider: 6, //secondi
+      isPaused: false
     }
   },
   methods:{
@@ -47,7 +48,9 @@ export default{
   mounted(){
     // Change slider jumbo
     setInterval(()=>{
-      if (++this.indexJumbo > 19 ) this.indexJumbo = 0;
+      if (!this.isPaused){
+        if (++this.indexJumbo > 19 ) this.indexJumbo = 0;
+      }
     },1000 * this.timerSlider)
   }
 }
@@ -62,12 +65,12 @@ export default{
       <CompLoading scale="big"/>
     </div>
     
-    <div class="jumbo" v-show="store.currentPage == 'Home' && !store.loading">
-      <div class="scroll s-left" @click="scroll('l')">
+    <div class="jumbo" v-show="store.currentPage == 'Home' && !store.loading" @mouseenter="isPaused = true" @mouseleave="isPaused = false">
+      <div class="scroll s-left" @click="scroll('l')" :class="{'hide-scroll' : !isPaused}">
         <i class="fa-solid fa-chevron-left"></i>
       </div>
       <CompJumbo :index="indexJumbo"/>
-      <div class="scroll s-right" @click="scroll('r')">
+      <div class="scroll s-right" @click="scroll('r')" :class="{'hide-scroll' : !isPaused}">
         <i class="fa-solid fa-chevron-right"></i>
       </div>
     </div>
@@ -157,11 +160,15 @@ h4{
     color: rgba(255, 255, 255, .8);
     text-shadow: 0 0 5px black;
     cursor: pointer;
+    transition: opacity .5s ease;
     &.s-right{
       right: 30px;
     }
     &.s-left{
       left: 30px;
+    }
+    &.hide-scroll{
+      opacity: 0;
     }
   }
 }

@@ -15,7 +15,7 @@ export default {
 
 </template>
 
-<style scoped lang="scss" >
+<style lang="scss" scoped>
 
 .lds-default {
   display: inline-block;

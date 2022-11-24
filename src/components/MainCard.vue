@@ -1,8 +1,8 @@
 <script>
 
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-
 import supportedLanguages from '../data/languageTOcountry.js';
+
 import { store } from "../data/store";
 
 export default{
@@ -30,8 +30,8 @@ export default{
   methods:{
     clickOnCard(){
       this.frontSide = !this.frontSide;
-      const ul = document.querySelector('.group > ul')
-      ul.scrollIntoView;
+      // const ul = document.querySelector('.group > ul');
+      // ul.scrollIntoView;
     }
   },
   computed:{
@@ -164,9 +164,9 @@ ul{
   flex-direction: column;
   overflow-y: auto;
   height: 100%;
-  padding: 5px;
+  padding: 8px;
   background-color: rgba($color: #000, $alpha: .8);
-  transition: all .8s ease;
+  transition: all 1s ease;
   &.hide{
     transform: translate(0, 100%);
   }
